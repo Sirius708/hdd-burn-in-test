@@ -15,6 +15,7 @@ function run_test() {
   MINUTES="$2"
   if [ -n "$MINUTES" ]; then
     smartctl -t "$TYPE" "$DRIVE"
+    echo
     echo "Waiting $MINUTES minutes for smart $TYPE test to complete"
     sleep "${MINUTES}m"
   else
