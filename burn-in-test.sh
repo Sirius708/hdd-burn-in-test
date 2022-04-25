@@ -27,9 +27,11 @@ function run_test() {
     smartctl -t "$TYPE" "$DRIVE"
     echo
     echo "Waiting $MINUTES minutes for smart $TYPE test to complete"
+    echo
     sleep "${MINUTES}m"
   else
     echo "Drive $DRIVE does not support smart $TYPE test"
+    echo
   fi
 }
 
@@ -47,6 +49,7 @@ function run_conveyance_test() {
 
 function show_test_status() {
   smartctl -l selftest "$DRIVE"
+  echo
 }
 
 run_short_test
