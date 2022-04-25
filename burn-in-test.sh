@@ -10,6 +10,16 @@ SHORT_POLL_MINUTES=$(smartctl -c "$DRIVE" -json | jq '.ata_smart_data.self_test.
 LONG_POLL_MINUTES=$(smartctl -c "$DRIVE" -json | jq '.ata_smart_data.self_test.polling_minutes.extended')
 CONVEYANCE_POLL_MINUTES=$(smartctl -c "$DRIVE" -json | jq '.ata_smart_data.self_test.polling_minutes.conveyance')
 
+if [ -n "$SHORT_POLL_MINUTES" ]; then
+  SHORT_POLL_MINUTES=$((SHORT_POLL_MINUTES + 1))
+fi
+if [ -n "$LONG_POLL_MINUTES" ]; then
+  LONG_POLL_MINUTES=$((LONG_POLL_MINUTES + 1))
+fi
+if [ -n "$CONVEYANCE_POLL_MINUTES" ]; then
+  CONVEYANCE_POLL_MINUTES=$((CONVEYANCE_POLL_MINUTES + 1))
+fi
+
 function run_test() {
   TYPE="$1"
   MINUTES="$2"
@@ -62,13 +72,13 @@ echo "Checking smart results"
 echo
 
 function check_smart_value() {
-    NAME="$1"
-    VALUE="$2"
-    if [ "$VALUE" -ne 0 ]; then
-      echo "$NAME is not 0"
-    else
-      echo "$NAME is 0"
-    fi
+  NAME="$1"
+  VALUE="$2"
+  if [ "$VALUE" -ne 0 ]; then
+    echo "$NAME is not 0"
+  else
+    echo "$NAME is 0"
+  fi
 }
 
 smartctl -A "$DRIVE"
