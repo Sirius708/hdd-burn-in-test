@@ -25,7 +25,7 @@ sudo ./burn-in-test.sh /dev/sdX
 
 Execute from download:
 ```shell
-sudo curl https://raw.githubusercontent.com/Sirius708/hdd-burn-in-test/main/burn-in-test.sh | bash -s -- /dev/sdX
+curl https://raw.githubusercontent.com/Sirius708/hdd-burn-in-test/main/burn-in-test.sh | sudo bash -s -- /dev/sdX
 ```
 
 Use something like tmux or screen to run this script for multiple drives in parallel.
