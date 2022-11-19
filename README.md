@@ -18,7 +18,7 @@ This script must be run with superuser privilages
 
 Manual execution:
 ```shell
-curl https://raw.githubusercontent.com/Sirius708/hdd-burn-in-test/main/burn-in-test.sh
+curl -O https://raw.githubusercontent.com/Sirius708/hdd-burn-in-test/main/burn-in-test.sh
 chmod +x burn-in-test.sh
 sudo ./burn-in-test.sh /dev/sdX
 ```
