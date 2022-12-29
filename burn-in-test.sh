@@ -10,20 +10,20 @@ SHORT_POLL_MINUTES=$(smartctl -c "$DRIVE" -json | jq '.ata_smart_data.self_test.
 LONG_POLL_MINUTES=$(smartctl -c "$DRIVE" -json | jq '.ata_smart_data.self_test.polling_minutes.extended')
 CONVEYANCE_POLL_MINUTES=$(smartctl -c "$DRIVE" -json | jq '.ata_smart_data.self_test.polling_minutes.conveyance')
 
-if [ -n "$SHORT_POLL_MINUTES" ]; then
+if [[ -n "$SHORT_POLL_MINUTES" && "$SHORT_POLL_MINUTES" != "null" ]]; then
   SHORT_POLL_MINUTES=$((SHORT_POLL_MINUTES + 1))
 fi
-if [ -n "$LONG_POLL_MINUTES" ]; then
+if [[ -n "$LONG_POLL_MINUTES" && "$LONG_POLL_MINUTES" != "null" ]]; then
   LONG_POLL_MINUTES=$((LONG_POLL_MINUTES + 1))
 fi
-if [ -n "$CONVEYANCE_POLL_MINUTES" ]; then
+if [[ -n "$CONVEYANCE_POLL_MINUTES" && "$CONVEYANCE_POLL_MINUTES" != "null" ]]; then
   CONVEYANCE_POLL_MINUTES=$((CONVEYANCE_POLL_MINUTES + 1))
 fi
 
 function run_test() {
   TYPE="$1"
   MINUTES="$2"
-  if [ -n "$MINUTES" ]; then
+  if [[ -n "$MINUTES" && "$MINUTES" != "null" ]]; then
     smartctl -t "$TYPE" "$DRIVE"
     echo
     echo "Waiting $MINUTES minutes for smart $TYPE test to complete"
